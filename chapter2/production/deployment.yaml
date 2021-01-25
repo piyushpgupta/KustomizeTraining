@@ -1,0 +1,16 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: kustomize-test
+  name: kustomize-test
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: kustomize-test
+  template:
+    metadata:
+      labels:
+        app: kustomize-test
