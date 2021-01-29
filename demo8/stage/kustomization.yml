@@ -1,0 +1,32 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+namespace: staging-env
+commonAnnotations:
+  env: production
+  monitor : prometheus
+
+resources:
+- ../base/
+
+patches:
+- deployment.yaml
+- service.yaml
+
+configMapGenerator:
+- name: application-configmap
+  literals:
+  - FOO=Bar
+
+secretGenerator:
+- name: application-secret
+  literals:
+  - username=admin
+  - password=secrettext
+
+generatorOptions:
+  disableNameSuffixHash: true
+  labels:
+    type: generated
+  annotations:
+    note: generated

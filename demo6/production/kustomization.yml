@@ -1,0 +1,28 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+namespace: production-env
+namePrefix: prod-
+nameSuffix : -release
+
+resources:
+- ../base/
+
+patches:
+- deployment.yaml
+- service.yaml
+
+configMapGenerator:
+- name: application-configmap
+  files:
+  - configmap/application.properties
+
+secretGenerator:
+- name: application-secret
+  files:
+  - secret/secret.txt
+
+generatorOptions:
+  disableNameSuffixHash: true
+
+
